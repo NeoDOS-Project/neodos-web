@@ -1,25 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <defs>
-    <radialGradient id="bg" cx="30%" cy="18%" r="95%">
-      <stop offset="0" stop-color="#0e1c2e"/>
-      <stop offset="1" stop-color="#060a12"/>
-    </radialGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#3ee0ff" stop-opacity="0.16"/>
+    <radialGradient id="glowCyan" cx="12%" cy="-10%" r="70%">
+      <stop offset="0" stop-color="#3ee0ff" stop-opacity="0.22"/>
       <stop offset="1" stop-color="#3ee0ff" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="glowGreen" cx="72%" cy="30%" r="45%">
-      <stop offset="0" stop-color="#63f2a5" stop-opacity="0.12"/>
+    <radialGradient id="glowGreen" cx="92%" cy="8%" r="60%">
+      <stop offset="0" stop-color="#63f2a5" stop-opacity="0.16"/>
       <stop offset="1" stop-color="#63f2a5" stop-opacity="0"/>
     </radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#94a3b8" stroke-opacity="0.07"/>
+    </pattern>
   </defs>
 
-  <circle cx="256" cy="256" r="256" fill="url(#bg)"/>
-  <circle cx="256" cy="256" r="256" fill="url(#glow)"/>
-  <circle cx="256" cy="256" r="256" fill="url(#glowGreen)"/>
+  <rect width="512" height="512" fill="#05070d"/>
+  <rect width="512" height="512" fill="url(#grid)"/>
+  <rect width="512" height="512" fill="url(#glowCyan)"/>
+  <rect width="512" height="512" fill="url(#glowGreen)"/>
 
-  <circle cx="256" cy="256" r="228" fill="none" stroke="#3ee0ff" stroke-opacity="0.32" stroke-width="6"/>
-
-  <path d="M176 344V168l160 176V168" fill="none" stroke="#e8eefb" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="352" cy="160" r="16" fill="#63f2a5"/>
+  <!-- BrandMark: mismo badge que la esquina del og.png -->
+  <rect x="52" y="52" width="408" height="408" rx="104" fill="#0a0f1a" stroke="#3ee0ff" stroke-opacity="0.5" stroke-width="18"/>
+  <path d="M190 356V185l147 171V185" fill="none" stroke="#e8eefb" stroke-width="33" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="384" cy="185" r="26" fill="#63f2a5"/>
 </svg>
