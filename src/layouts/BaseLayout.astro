@@ -1,0 +1,137 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { defaultLang, type Lang } from '../i18n/config';
+import { switchLangUrl } from '../i18n/utils';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: Lang;
+  localized?: boolean;
+}
+
+const {
+  title,
+  description,
+  lang = defaultLang,
+  localized = true,
+} = Astro.props;
+
+const t = useTranslations(lang);
+const metaDescription =
+  description ??
+  'NeoDOS is a modern 64-bit operating system written in Rust for x86-64: hybrid kernel, Object Manager, isolated drivers, SMP and ACL-based security.';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const site = Astro.site ?? new URL('https://alexis900.github.io');
+const canonical = new URL(Astro.url.pathname, site).toString();
+const ogImage = new URL(`${base}/og.png`, site).toString();
+---
+
+<!doctype html>
+<html
+  lang={lang}
+  data-copy-label={t.common.copy}
+  data-copied-label={t.common.copied}
+  data-copy-error={t.common.copyError}
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · NeoDOS</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <meta name="theme-color" content="#05070d" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="author" content="NeoDOS Project" />
+
+    {
+      localized && (
+        <>
+          <link rel="alternate" hreflang="en" href={switchLangUrl(Astro.url.pathname, 'en')} />
+          <link rel="alternate" hreflang="es" href={switchLangUrl(Astro.url.pathname, 'es')} />
+          <link rel="alternate" hreflang="x-default" href={switchLangUrl(Astro.url.pathname, 'en')} />
+        </>
+      )
+    }
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NeoDOS" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
+    <meta property="og:title" content={`${title} · NeoDOS`} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} · NeoDOS`} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+  </head>
+  <body>
+    <a class="skip" href="#main">{t.common.skip}</a>
+    <SiteHeader lang={lang} localized={localized} />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter lang={lang} />
+
+    <script>
+      const root = document.documentElement;
+      const labels = {
+        copy: root.dataset.copyLabel || 'Copy',
+        copied: root.dataset.copiedLabel || 'Copied',
+        error: root.dataset.copyError || 'Error',
+      };
+
+      document.querySelectorAll('[data-copy]').forEach((button) => {
+        button.textContent = labels.copy;
+      });
+
+      const header = document.querySelector('.site-header');
+      const toggle = document.querySelector('[data-nav-toggle]');
+      const openLabel = document.documentElement.lang === 'es' ? 'Abrir menú' : 'Open menu';
+      const closeLabel = document.documentElement.lang === 'es' ? 'Cerrar menú' : 'Close menu';
+
+      const setOpen = (open) => {
+        if (!header || !toggle) return;
+        header.setAttribute('data-open', String(open));
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? closeLabel : openLabel);
+      };
+
+      toggle?.addEventListener('click', () => {
+        setOpen(header?.getAttribute('data-open') !== 'true');
+      });
+
+      header?.querySelectorAll('.nav a').forEach((link) => {
+        link.addEventListener('click', () => setOpen(false));
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setOpen(false);
+      });
+
+      document.querySelectorAll('[data-copy]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          const block = button.closest('.codeblock');
+          const code = block?.querySelector('pre')?.innerText ?? '';
+          try {
+            await navigator.clipboard.writeText(code);
+            button.textContent = labels.copied;
+          } catch {
+            button.textContent = labels.error;
+          }
+          window.setTimeout(() => {
+            button.textContent = labels.copy;
+          }, 1600);
+        });
+      });
+    </script>
+  </body>
+</html>

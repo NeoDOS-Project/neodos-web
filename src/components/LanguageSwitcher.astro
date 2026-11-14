@@ -1,0 +1,28 @@
+---
+import { languages, type Lang } from '../i18n/config';
+import { switchLangUrl } from '../i18n/utils';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const pathname = Astro.url.pathname;
+---
+
+<nav class="lang-switch" aria-label={t.common.language}>
+  {
+    (Object.keys(languages) as Lang[]).map((code) => (
+      <a
+        href={switchLangUrl(pathname, code)}
+        hreflang={code}
+        lang={code}
+        aria-current={code === lang ? 'true' : undefined}
+      >
+        {code.toUpperCase()}
+      </a>
+    ))
+  }
+</nav>

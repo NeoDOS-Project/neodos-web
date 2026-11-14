@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import type { Lang } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'es' } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const l = (path: string) => `${base}/${lang}${path}`;
+const github = 'https://github.com/NeoDOS-Project';
+---
+
+<BaseLayout lang={lang} title={t.gettingStarted.meta.title} description={t.gettingStarted.meta.description}>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">{t.gettingStarted.hero.eyebrow}</span>
+      <h1>{t.gettingStarted.hero.titleA}<br />{t.gettingStarted.hero.titleB}</h1>
+      <p class="lead">{t.gettingStarted.hero.lead}</p>
+      <div class="hero__meta">
+        {
+          t.gettingStarted.hero.badges.map((badge, index) => (
+            <span class:list={['badge', index === 0 && 'badge--cyan', index === 2 && 'badge--amber']}>
+              {badge}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div>
+          <span class="eyebrow">{t.gettingStarted.step1.eyebrow}</span>
+          <h2>{t.gettingStarted.step1.title}</h2>
+          <p class="lead" style="margin-top: 1rem;">{t.gettingStarted.step1.lead}</p>
+
+          <ul class="prose" style="list-style: none; padding: 0; margin-top: 1.5rem;">
+            {
+              t.gettingStarted.step1.requirements.map((item) => (
+                <li style="display: flex; gap: 0.65rem; align-items: baseline;">
+                  <span style="color: var(--green); flex: none;"><Icon name="check" /></span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="stack">
+          <CodeBlock title={t.gettingStarted.step1.fedoraTitle} code={t.gettingStarted.step1.fedoraCode} />
+          <CodeBlock title={t.gettingStarted.step1.debianTitle} code={t.gettingStarted.step1.debianCode} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <span class="eyebrow">{t.gettingStarted.step2.eyebrow}</span>
+      <h2>{t.gettingStarted.step2.title}</h2>
+      <p class="lead" style="margin-top: 1rem;">{t.gettingStarted.step2.lead}</p>
+
+      <CodeBlock title={t.gettingStarted.step2.codeTitle} code={t.gettingStarted.step2.code} />
+
+      <div class="callout callout--info" style="margin-top: 1.25rem;">
+        <Icon name="info" />
+        <span>{t.gettingStarted.step2.note}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">{t.gettingStarted.step3.eyebrow}</span>
+      <h2>{t.gettingStarted.step3.title}</h2>
+      <p class="lead" style="margin-top: 1rem;">{t.gettingStarted.step3.lead}</p>
+
+      <CodeBlock title={t.gettingStarted.step3.codeTitle} code={t.gettingStarted.step3.code} />
+
+      <div class="callout" style="margin-top: 1.25rem;">
+        <Icon name="alert" />
+        <span>
+          <strong>{t.gettingStarted.step3.calloutTitle}</strong>{' '}
+          {t.gettingStarted.step3.calloutBody}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.gettingStarted.reference.eyebrow}</span>
+        <h2>{t.gettingStarted.reference.title}</h2>
+        <p>{t.gettingStarted.reference.lead}</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>{t.gettingStarted.reference.headers.command}</th>
+              <th>{t.gettingStarted.reference.headers.description}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              t.gettingStarted.reference.commands.map((item) => (
+                <tr>
+                  <td class="mono">{item.cmd}</td>
+                  <td>{item.desc}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div>
+          <span class="eyebrow">{t.gettingStarted.config.eyebrow}</span>
+          <h2>{t.gettingStarted.config.title}</h2>
+          <p class="lead" style="margin-top: 1rem;">{t.gettingStarted.config.lead}</p>
+          <p style="margin-top: 1rem;">{t.gettingStarted.config.body}</p>
+          <div class="section-actions">
+            <a
+              class="btn btn--ghost"
+              href={`${github}/NeoDOS/blob/develop/docs/development/qemu.md`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.gettingStarted.config.qemu}
+              <Icon name="external" />
+            </a>
+            <a
+              class="btn btn--ghost"
+              href={`${github}/NeoDOS/blob/develop/docs/development/virtualbox.md`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.gettingStarted.config.virtualbox}
+              <Icon name="external" />
+            </a>
+          </div>
+        </div>
+
+        <CodeBlock title={t.gettingStarted.config.codeTitle} code={t.gettingStarted.config.code} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="cta">
+        <span class="eyebrow">{t.gettingStarted.cta.eyebrow}</span>
+        <h2>{t.gettingStarted.cta.title}</h2>
+        <p>{t.gettingStarted.cta.body}</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={l('/roadmap/')}>
+            {t.gettingStarted.cta.primary}
+            <Icon name="arrow" />
+          </a>
+          <a
+            class="btn btn--ghost"
+            href={`${github}/NeoDOS/blob/develop/CONTRIBUTING.md`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.gettingStarted.cta.secondary}
+            <Icon name="external" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

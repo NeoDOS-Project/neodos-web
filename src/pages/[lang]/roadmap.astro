@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import type { Lang } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'es' } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+const github = 'https://github.com/NeoDOS-Project';
+
+const toneClass: Record<string, string> = {
+  done: 'badge--green',
+  active: 'badge--cyan',
+  planned: '',
+  goal: 'badge--amber',
+};
+---
+
+<BaseLayout lang={lang} title={t.roadmap.meta.title} description={t.roadmap.meta.description}>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">{t.roadmap.hero.eyebrow}</span>
+      <h1>{t.roadmap.hero.titleA}<br />{t.roadmap.hero.titleB}</h1>
+      <p class="lead">{t.roadmap.hero.lead}</p>
+      <div class="hero__meta">
+        {
+          t.roadmap.hero.badges.map((badge, index) => (
+            <span class:list={['badge', index === 0 && 'badge--cyan', index === 2 && 'badge--green']}>
+              {badge}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.roadmap.map.eyebrow}</span>
+        <h2>{t.roadmap.map.title}</h2>
+        <p>{t.roadmap.map.lead}</p>
+      </div>
+
+      <div class="timeline">
+        {
+          t.roadmap.phases.map((phase) => (
+            <div class:list={['phase', phase.active && 'phase--active']}>
+              <div class="phase__dot" aria-hidden="true">
+                {phase.id}
+              </div>
+              <div class="phase__body">
+                <div class="phase__top">
+                  <h3>{phase.title}</h3>
+                  <span class="phase__versions">{phase.versions}</span>
+                  <span class:list={['badge', toneClass[phase.tone]]}>{phase.state}</span>
+                </div>
+                <p>{phase.description}</p>
+                <ul>
+                  {phase.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.roadmap.future.eyebrow}</span>
+        <h2>{t.roadmap.future.title}</h2>
+        <p>{t.roadmap.future.lead}</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>{t.roadmap.future.headers.version}</th>
+              <th>{t.roadmap.future.headers.focus}</th>
+              <th>{t.roadmap.future.headers.examples}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              t.roadmap.future.rows.map((row) => (
+                <tr>
+                  <td class="mono">{row.version}</td>
+                  <td><strong>{row.focus}</strong></td>
+                  <td>{row.examples}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.roadmap.method.eyebrow}</span>
+        <h2>{t.roadmap.method.title}</h2>
+      </div>
+
+      <div class="card-grid">
+        {
+          t.roadmap.method.cards.map((card) => (
+            <article class="card">
+              <span class="card__icon"><Icon name={card.icon as any} /></span>
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="section-actions">
+        <a
+          class="btn btn--primary"
+          href={`${github}/NeoDOS/blob/develop/ROADMAP.md`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.roadmap.method.primary}
+          <Icon name="external" />
+        </a>
+        <a
+          class="btn btn--ghost"
+          href={`${github}/NeoDOS/issues`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.roadmap.method.secondary}
+          <Icon name="external" />
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

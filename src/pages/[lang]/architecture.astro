@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import type { Lang } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'es' } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const l = (path: string) => `${base}/${lang}${path}`;
+const github = 'https://github.com/NeoDOS-Project';
+---
+
+<BaseLayout lang={lang} title={t.architecture.meta.title} description={t.architecture.meta.description}>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">{t.architecture.hero.eyebrow}</span>
+      <h1>{t.architecture.hero.titleA}<br />{t.architecture.hero.titleB}</h1>
+      <p class="lead">{t.architecture.hero.lead}</p>
+      <div class="hero__meta">
+        {
+          t.architecture.hero.badges.map((badge, index) => (
+            <span class:list={['badge', index === 0 && 'badge--cyan', index === 2 && 'badge--green']}>
+              {badge}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.architecture.boot.eyebrow}</span>
+        <h2>{t.architecture.boot.title}</h2>
+        <p>{t.architecture.boot.lead}</p>
+      </div>
+
+      <CodeBlock title={t.architecture.boot.codeTitle} code={t.architecture.boot.code} />
+
+      <div class="card-grid" style="margin-top: 1.75rem;">
+        {
+          t.architecture.boot.cards.map((card, index) => (
+            <article class="card">
+              <span class="card__num">0{index + 1}</span>
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.architecture.layers.eyebrow}</span>
+        <h2>{t.architecture.layers.title}</h2>
+        <p>{t.architecture.layers.lead}</p>
+      </div>
+
+      <div class="layers">
+        {
+          t.architecture.layers.items.map((layer) => (
+            <div class="layer">
+              <h3>{layer.name}</h3>
+              <p>{layer.text}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="callout callout--info" style="margin-top: 1.5rem;">
+        <Icon name="info" />
+        <span>
+          <strong>{t.architecture.layers.calloutTitle}</strong>{' '}
+          {t.architecture.layers.calloutBody}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.architecture.subsystems.eyebrow}</span>
+        <h2>{t.architecture.subsystems.title}</h2>
+        <p>{t.architecture.subsystems.lead}</p>
+      </div>
+
+      <div class="card-grid">
+        {
+          t.architecture.subsystems.items.map((item) => (
+            <article class="card">
+              <span class="card__icon"><Icon name={item.icon as any} /></span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="split">
+        <div>
+          <span class="eyebrow">{t.architecture.objects.eyebrow}</span>
+          <h2>{t.architecture.objects.title}</h2>
+          <p class="lead" style="margin-top: 1rem;">{t.architecture.objects.lead}</p>
+          <ul class="prose">
+            {t.architecture.objects.bullets.map((bullet) => <li set:html={bullet} />)}
+          </ul>
+        </div>
+
+        <CodeBlock title={t.architecture.objects.codeTitle} code={t.architecture.objects.code} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.architecture.disk.eyebrow}</span>
+        <h2>{t.architecture.disk.title}</h2>
+        <p>{t.architecture.disk.lead}</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>{t.architecture.disk.headers.region}</th>
+              <th>{t.architecture.disk.headers.content}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              t.architecture.disk.rows.map((row) => (
+                <tr>
+                  <td class="mono">{row.range}</td>
+                  <td>{row.content}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="margin-top: 1.5rem;">
+        <Icon name="alert" />
+        <span>
+          <strong>{t.architecture.disk.calloutTitle}</strong>{' '}
+          {t.architecture.disk.calloutBody}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.architecture.invariants.eyebrow}</span>
+        <h2>{t.architecture.invariants.title}</h2>
+      </div>
+
+      <div class="card-grid card-grid--2">
+        {
+          t.architecture.invariants.items.map((item) => (
+            <article class="card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="section-actions">
+        <a
+          class="btn btn--primary"
+          href={`${github}/NeoDOS/blob/develop/docs/architecture/overview.md`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.architecture.invariants.primary}
+          <Icon name="external" />
+        </a>
+        <a
+          class="btn btn--ghost"
+          href={`${github}/NeoDOS/blob/develop/docs/architecture/source-of-truth.md`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.architecture.invariants.secondary}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glowCyan" cx="12%" cy="-10%" r="70%">
+      <stop offset="0" stop-color="#3ee0ff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#3ee0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowGreen" cx="92%" cy="8%" r="60%">
+      <stop offset="0" stop-color="#63f2a5" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#63f2a5" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#94a3b8" stroke-opacity="0.07"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="#05070d"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glowCyan)"/>
+  <rect width="1200" height="630" fill="url(#glowGreen)"/>
+
+  <g transform="translate(80 78)">
+    <rect x="1" y="1" width="86" height="86" rx="22" fill="#0a0f1a" stroke="#3ee0ff" stroke-opacity="0.5" stroke-width="4"/>
+    <path d="M29 64V28l31 36V28" fill="none" stroke="#e8eefb" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="70" cy="28" r="5.5" fill="#63f2a5"/>
+  </g>
+
+  <text x="196" y="146" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="64" font-weight="700" fill="#e8eefb">Neo<tspan fill="#3ee0ff">DOS</tspan></text>
+  <text x="82" y="262" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="58" font-weight="700" fill="#e8eefb">A modern operating system</text>
+  <text x="82" y="332" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="58" font-weight="700" fill="#3ee0ff">written in Rust.</text>
+  <text x="84" y="394" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="26" fill="#93a3bd">Hybrid kernel · Object Manager · isolated drivers · SMP · ACL security</text>
+
+  <g font-family="DejaVu Sans Mono, Liberation Mono, monospace" font-size="20">
+    <rect x="82" y="456" width="132" height="42" rx="21" fill="#3ee0ff" fill-opacity="0.1" stroke="#3ee0ff" stroke-opacity="0.4"/>
+    <text x="104" y="483" fill="#3ee0ff">v0.51.5</text>
+    <rect x="228" y="456" width="150" height="42" rx="21" fill="#63f2a5" fill-opacity="0.1" stroke="#63f2a5" stroke-opacity="0.4"/>
+    <text x="250" y="483" fill="#63f2a5">937 tests</text>
+    <rect x="392" y="456" width="128" height="42" rx="21" fill="#94a3b8" fill-opacity="0.08" stroke="#94a3b8" stroke-opacity="0.35"/>
+    <text x="414" y="483" fill="#c2cee3">ABI v8</text>
+    <rect x="534" y="456" width="200" height="42" rx="21" fill="#94a3b8" fill-opacity="0.08" stroke="#94a3b8" stroke-opacity="0.35"/>
+    <text x="556" y="483" fill="#c2cee3">MIT licence</text>
+  </g>
+
+  <text x="1118" y="560" text-anchor="end" font-family="DejaVu Sans Mono, Liberation Mono, monospace" font-size="20" fill="#6f7f99">x86-64 · UEFI · NeoFS v2</text>
+  <rect x="82" y="560" width="240" height="3" rx="1.5" fill="#3ee0ff" fill-opacity="0.6"/>
+</svg>

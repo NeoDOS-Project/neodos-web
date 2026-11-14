@@ -1,0 +1,265 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import type { Lang } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'es' } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const l = (path: string) => `${base}/${lang}${path}`;
+const github = 'https://github.com/NeoDOS-Project';
+const terminal = t.home.hero.terminal;
+---
+
+<BaseLayout lang={lang} title={t.home.meta.title} description={t.home.meta.description}>
+  <section class="hero">
+    <div class="container">
+      <div class="hero__grid">
+        <div>
+          <span class="eyebrow">{t.home.hero.eyebrow}</span>
+          <h1 class="hero__title">
+            <span>{t.home.hero.titleA}</span>
+            <span class="gradient-text">{t.home.hero.titleB}</span>
+          </h1>
+          <p class="hero__lead">{t.home.hero.lead}</p>
+          <div class="hero__meta">
+            <span class="badge badge--cyan">{t.home.hero.badges.version}</span>
+            <span class="badge badge--green">{t.home.hero.badges.tests}</span>
+            <span class="badge">{t.home.hero.badges.abi}</span>
+            <span class="badge">{t.home.hero.badges.license}</span>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn--primary" href={l('/getting-started/')}>
+              {t.home.hero.ctaPrimary}
+              <Icon name="arrow" />
+            </a>
+            <a class="btn btn--ghost" href={`${github}/NeoDOS`} target="_blank" rel="noopener noreferrer">
+              {t.home.hero.ctaSecondary}
+            </a>
+          </div>
+        </div>
+
+        <div class="hero__terminal">
+          <div class="terminal" aria-label={terminal.label}>
+            <div class="terminal__bar">
+              <div class="terminal__dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span class="terminal__title">{terminal.title}</span>
+            </div>
+            <div class="terminal__body">
+              <div class="terminal__log">
+                <span class="tline" style="--i:0">
+                  <span class="dim">{terminal.first}</span> {terminal.firstVersion}
+                </span>
+                {
+                  terminal.lines.map((line, index) => (
+                    <span class="tline" style={`--i:${index + 1}`}>
+                      <span class="ok">[ ok ]</span> {line}
+                    </span>
+                  ))
+                }
+                <span class="tline" style={`--i:${terminal.lines.length + 1}`}>
+                  <span class="dim">{terminal.prompt}</span>{' '}
+                  <span class="cmd">{terminal.promptCommand}</span> <span class="cursor"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <dl class="hero-stats">
+        {
+          t.home.stats.map((stat) => (
+            <div>
+              <dt>{stat.label}</dt>
+              <dd>
+                {stat.value}
+                {stat.suffix && <em>{stat.suffix}</em>}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.home.what.eyebrow}</span>
+        <h2>{t.home.what.title}</h2>
+        <p>{t.home.what.lead}</p>
+      </div>
+
+      <div class="card-grid">
+        {
+          t.home.what.cards.map((card, index) => (
+            <article class="card">
+              <span class="card__icon">
+                <Icon name={index === 0 ? 'code' : index === 1 ? 'layers' : 'shield'} />
+              </span>
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.home.architecture.eyebrow}</span>
+        <h2>{t.home.architecture.title}</h2>
+        <p>{t.home.architecture.lead}</p>
+      </div>
+
+      <div class="flow" aria-label={t.home.architecture.title}>
+        {
+          t.home.architecture.flow.map((step, index) => (
+            <>
+              <div class="flow__step">
+                <strong>{step.name}</strong>
+                <span>{step.detail}</span>
+              </div>
+              {index < t.home.architecture.flow.length - 1 && (
+                <span class="flow__arrow" aria-hidden="true">→</span>
+              )}
+            </>
+          ))
+        }
+      </div>
+
+      <div class="layers">
+        {
+          t.home.architecture.layers.map((layer) => (
+            <div class="layer">
+              <h3>{layer.title}</h3>
+              <p>{layer.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="section-actions">
+        <a class="btn btn--ghost" href={l('/architecture/')}>
+          {t.home.architecture.cta}
+          <Icon name="arrow" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.home.status.eyebrow}</span>
+        <h2>{t.home.status.title}</h2>
+        <p>{t.home.status.lead}</p>
+      </div>
+
+      <dl class="spec-grid">
+        {
+          t.home.status.specs.map((spec, index) => (
+            <div class:list={['spec', index === 0 && 'spec--accent']}>
+              <dt>{spec.term}</dt>
+              <dd>{spec.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="quote">
+        <p>{t.home.status.quote}</p>
+        <footer>{t.home.status.quoteCite}</footer>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div>
+          <span class="eyebrow">{t.home.quickstart.eyebrow}</span>
+          <h2>{t.home.quickstart.title}</h2>
+          <p class="lead" style="margin-top: 1rem;">{t.home.quickstart.lead}</p>
+          <ul class="prose" style="list-style: none; padding: 0; margin-top: 1.5rem;">
+            {
+              t.home.quickstart.checklist.map((item) => (
+                <li style="display: flex; gap: 0.6rem; align-items: baseline;">
+                  <span style="color: var(--green); flex: none;"><Icon name="check" /></span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="section-actions">
+            <a class="btn btn--primary" href={l('/getting-started/')}>
+              {t.home.quickstart.cta}
+              <Icon name="arrow" />
+            </a>
+          </div>
+        </div>
+
+        <CodeBlock
+          title={t.home.quickstart.codeTitle}
+          code={t.home.quickstart.code}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.home.ecosystem.eyebrow}</span>
+        <h2>{t.home.ecosystem.title}</h2>
+        <p>{t.home.ecosystem.lead}</p>
+      </div>
+
+      <div class="repo-grid">
+        {
+          t.home.ecosystem.repos.map((repo) => (
+            <a class="repo" href={repo.url} target="_blank" rel="noopener noreferrer">
+              <div class="repo__top">
+                <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                  <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z" />
+                </svg>
+                <span class="repo__name"><span>NeoDOS-Project /</span> {repo.name}</span>
+              </div>
+              <p>{repo.description}</p>
+              <span class="repo__tag">{repo.tag} ↗</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta">
+        <span class="eyebrow">{t.home.cta.eyebrow}</span>
+        <h2>{t.home.cta.title}</h2>
+        <p>{t.home.cta.body}</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={`${github}/NeoDOS`} target="_blank" rel="noopener noreferrer">
+            {t.home.cta.primary}
+            <Icon name="external" />
+          </a>
+          <a class="btn btn--ghost" href={l('/roadmap/')}>
+            {t.home.cta.secondary}
+            <Icon name="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

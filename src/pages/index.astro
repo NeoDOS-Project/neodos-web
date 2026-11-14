@@ -1,0 +1,23 @@
+---
+// Static entry point: send visitors to the default locale.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const target = `${base}/en/`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NeoDOS</title>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <link rel="alternate" hreflang="es" href={`${base}/es/`} />
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#05070d" />
+  </head>
+  <body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#05070d;color:#e6edf7;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+    <p>Redirecting to <a href={target} style="color:#3ee0ff">NeoDOS</a>…</p>
+  </body>
+</html>

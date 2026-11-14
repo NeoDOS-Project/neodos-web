@@ -1,0 +1,80 @@
+---
+import BrandMark from './BrandMark.astro';
+import type { Lang } from '../i18n/config';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const year = new Date().getFullYear();
+
+const siteLinks = t.footer.site.map((link) => ({
+  label: link.label,
+  href: `${base}/${lang}${link.path}`,
+}));
+
+const columns = [
+  { title: t.footer.siteTitle, links: siteLinks },
+  { title: t.footer.projectTitle, links: t.footer.project },
+  { title: t.footer.toolingTitle, links: t.footer.tooling },
+];
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <a class="brand" href={`${base}/${lang}/`} aria-label="NeoDOS — home">
+          <BrandMark />
+          <span>Neo<em>DOS</em></span>
+        </a>
+        <p>{t.footer.tagline}</p>
+        <div class="hero__meta">
+          <span class="badge badge--green">{t.footer.version}</span>
+          <span class="badge">{t.footer.license}</span>
+        </div>
+      </div>
+
+      {
+        columns.map((column) => (
+          <div>
+            <h3>{column.title}</h3>
+            <ul>
+              {column.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    {...(link.href.startsWith('http')
+                      ? { target: '_blank', rel: 'noopener noreferrer' }
+                      : {})}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>
+        <span>© {year} {t.footer.copyright}</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>{t.footer.risk}</span>
+      </p>
+      <p>
+        <span class="mono">{t.footer.builtWith}</span>
+        <span class="dot" aria-hidden="true"></span>
+        <a href="https://github.com/alexis900/neodos-web" target="_blank" rel="noopener noreferrer">
+          {t.footer.source}
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { useTranslations } from '../i18n/ui';
+
+const t = useTranslations('en');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title={t.notFound.title} description={t.notFound.description} lang="en" localized={false}>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">404</span>
+      <h1>{t.notFound.heading}</h1>
+      <p class="lead">{t.notFound.body}</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href={`${base}/en/`}>
+          {t.notFound.english}
+          <Icon name="arrow" />
+        </a>
+        <a class="btn btn--ghost" href={`${base}/es/`}>{t.notFound.spanish}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

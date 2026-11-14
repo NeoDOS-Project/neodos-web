@@ -1,0 +1,18 @@
+---
+interface Props {
+  title?: string;
+  code?: string;
+  html?: string;
+  copyLabel?: string;
+}
+
+const { title = 'bash', code, html, copyLabel = 'Copy' } = Astro.props;
+---
+
+<div class="codeblock">
+  <div class="codeblock__head">
+    <span>{title}</span>
+    <button class="copy-btn" type="button" data-copy>{copyLabel}</button>
+  </div>
+  <pre><code>{html ? <Fragment set:html={html} /> : code}</code></pre>
+</div>
