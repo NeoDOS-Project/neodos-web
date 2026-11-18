@@ -31,9 +31,9 @@
 
   <g font-family="DejaVu Sans Mono, Liberation Mono, monospace" font-size="20">
     <rect x="82" y="456" width="132" height="42" rx="21" fill="#3ee0ff" fill-opacity="0.1" stroke="#3ee0ff" stroke-opacity="0.4"/>
-    <text x="104" y="483" fill="#3ee0ff">v0.51.5</text>
+    <text x="104" y="483" fill="#3ee0ff">v0.52</text>
     <rect x="228" y="456" width="150" height="42" rx="21" fill="#63f2a5" fill-opacity="0.1" stroke="#63f2a5" stroke-opacity="0.4"/>
-    <text x="250" y="483" fill="#63f2a5">937 tests</text>
+    <text x="250" y="483" fill="#63f2a5">997 tests</text>
     <rect x="392" y="456" width="128" height="42" rx="21" fill="#94a3b8" fill-opacity="0.08" stroke="#94a3b8" stroke-opacity="0.35"/>
     <text x="414" y="483" fill="#c2cee3">ABI v8</text>
     <rect x="534" y="456" width="200" height="42" rx="21" fill="#94a3b8" fill-opacity="0.08" stroke="#94a3b8" stroke-opacity="0.35"/>

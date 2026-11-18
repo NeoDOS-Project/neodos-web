@@ -11,7 +11,7 @@ Built with [Astro](https://astro.build/) and published to GitHub Pages at
 - Bilingual: English and Spanish under `/en/` and `/es/`.
 - Dark terminal-inspired design with a responsive layout.
 - Static output, self-hosted fonts and no client-side framework.
-- Pages: home, architecture, getting started, roadmap and resources.
+- Pages: home, architecture, getting started, roadmap, what's new and resources.
 - SEO metadata, canonical URLs, `hreflang` alternates and Open Graph image.
 
 ## Development

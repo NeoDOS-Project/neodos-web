@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import type { Lang } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'es' } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+const github = 'https://github.com/NeoDOS-Project/NeoDOS';
+
+const toneClass: Record<string, string> = {
+  cyan: 'badge--cyan',
+  green: 'badge--green',
+  amber: 'badge--amber',
+};
+---
+
+<BaseLayout lang={lang} title={t.news.meta.title} description={t.news.meta.description}>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">{t.news.hero.eyebrow}</span>
+      <h1>{t.news.hero.titleA}<br />{t.news.hero.titleB}</h1>
+      <p class="lead">{t.news.hero.lead}</p>
+      <div class="hero__meta">
+        {
+          t.news.hero.badges.map((badge, index) => (
+            <span class:list={['badge', index === 0 && 'badge--cyan', index === 2 && 'badge--green']}>
+              {badge}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.news.development.eyebrow}</span>
+        <h2>{t.news.development.title}</h2>
+        <p>{t.news.development.lead}</p>
+      </div>
+
+      <div class="card-grid card-grid--2">
+        {
+          t.news.development.items.map((item) => (
+            <article class="card">
+              <span class="card__icon"><Icon name="git" /></span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="callout callout--info">
+        <Icon name="info" />
+        <p>{t.news.development.note}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{t.news.history.eyebrow}</span>
+        <h2>{t.news.history.title}</h2>
+        <p>{t.news.history.lead}</p>
+      </div>
+
+      <div class="timeline">
+        {
+          t.news.releases.map((release, index) => (
+            <div class:list={['phase', index === 0 && 'phase--active']}>
+              <div class="phase__dot" aria-hidden="true">{release.version.replace('v', '')}</div>
+              <div class="phase__body">
+                <div class="phase__top">
+                  <h3>{release.title}</h3>
+                  <span class="phase__versions">{release.date}</span>
+                  <span class:list={['badge', toneClass[release.tone]]}>{release.badge}</span>
+                </div>
+                <p>{release.summary}</p>
+                <ul>
+                  {release.highlights.map((item) => (
+                    <li>
+                      <strong>{item.title}.</strong> {item.body}
+                    </li>
+                  ))}
+                </ul>
+                {release.fixes.length > 0 && (
+                  <>
+                    <p><strong>{t.news.fixesLabel}</strong></p>
+                    <ul>
+                      {release.fixes.map((item) => (
+                        <li>
+                          <strong>{item.title}.</strong> {item.body}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                <p>
+                  <strong>{t.news.validationLabel}.</strong>
+                  <span class="mono">{release.validation}</span>
+                </p>
+                <div class="section-actions">
+                  <a
+                    class="btn btn--ghost btn--sm"
+                    href={release.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {release.version}
+                    <Icon name="external" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="container">
+      <div class="cta">
+        <span class="eyebrow">{t.news.cta.eyebrow}</span>
+        <h2>{t.news.cta.title}</h2>
+        <p>{t.news.cta.body}</p>
+        <div class="btn-row">
+          <a
+            class="btn btn--primary"
+            href={`${github}/blob/develop/CHANGELOG.md`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.news.cta.primary}
+            <Icon name="external" />
+          </a>
+          <a
+            class="btn btn--ghost"
+            href={`${github}/releases`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.news.cta.secondary}
+            <Icon name="external" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

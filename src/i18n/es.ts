@@ -16,17 +16,19 @@ export const es: SiteContent = {
     architecture: 'Arquitectura',
     gettingStarted: 'Empezar',
     roadmap: 'Roadmap',
+    news: 'Novedades',
     resources: 'Recursos',
   },
   footer: {
     tagline: 'Un sistema operativo experimental de 64 bits escrito en Rust. Explícito sobre mágico, capas y no montones.',
-    version: 'v0.51.5',
+    version: 'v0.52',
     license: 'MIT',
     siteTitle: 'Sitio',
     projectTitle: 'Proyecto',
     toolingTitle: 'Herramientas',
     site: [
       { label: 'Inicio', path: '/' },
+      { label: 'Novedades', path: '/news/' },
       { label: 'Arquitectura', path: '/architecture/' },
       { label: 'Empezar', path: '/getting-started/' },
       { label: 'Roadmap', path: '/roadmap/' },
@@ -63,8 +65,8 @@ export const es: SiteContent = {
       titleB: 'hecho desde cero.',
       lead: 'NeoDOS es un SO de 64 bits con kernel monolítico y drivers aislados estilo microkernel. Arranca en UEFI, escala a 16 CPUs y trata cada recurso —procesos, archivos, dispositivos— como un objeto con nombre, handles y ACL.',
       badges: {
-        version: 'v0.51.5',
-        tests: '937 tests',
+        version: 'v0.52',
+        tests: '997 tests',
         abi: 'ABI v8',
         license: 'MIT',
       },
@@ -74,12 +76,12 @@ export const es: SiteContent = {
         label: 'Registro de arranque de NeoDOS',
         title: 'neodos — qemu · serial',
         first: 'NeoDOS',
-        firstVersion: 'v0.51.5 · x86-64 · UEFI',
+        firstVersion: 'v0.52 · x86-64 · UEFI',
         lines: [
           'bootloader.efi → kernel.elf',
           'Ob manager · VFS · NeoFS v2',
           'SMP 16 CPUs · APIC 1 kHz',
-          '937 tests del kernel superados',
+          '997 tests del kernel superados',
           'NeoInit PID 1 · NeoShell Ring 3',
         ],
         prompt: 'NeoShell',
@@ -87,8 +89,8 @@ export const es: SiteContent = {
       },
     },
     stats: [
-      { label: 'Versión actual', value: 'v0.51.5', suffix: '' },
-      { label: 'Tests del kernel', value: '937', suffix: 'pasando' },
+      { label: 'Versión actual', value: 'v0.52', suffix: '' },
+      { label: 'Tests del kernel', value: '997', suffix: 'pasando' },
       { label: 'Fases de arranque', value: '31', suffix: '' },
       { label: 'SMP', value: '16', suffix: 'CPUs' },
     ],
@@ -151,14 +153,14 @@ export const es: SiteContent = {
       title: 'Un sistema real, en desarrollo activo',
       lead: 'El kernel ya cubre arranque UEFI, SMP, gestión de objetos, seguridad ACL, red TCP/IP y un filesystem propio con copy-on-write.',
       specs: [
-        { term: 'Kernel', value: 'v0.51.5 · 937 tests · 31 fases de arranque' },
+        { term: 'Kernel', value: 'v0.52 · 997 tests · 31 fases de arranque' },
         { term: 'Syscalls', value: 'SSDT RAX 0–99 · 256 slots · ABI v8' },
         { term: 'SMP', value: '16 CPUs · INIT-SIPI-SIPI · IPI (reschedule, TLB shootdown)' },
         { term: 'Drivers', value: '7 NEM standalone + 5 reference · certificación y capacidades' },
         { term: 'Memoria', value: 'Buddy + slab con caché por CPU · demand paging · mmap' },
         { term: 'Seguridad', value: 'SID, Token, ACL, ACE y SeAccessCheck — modelo NT6' },
         { term: 'Filesystem', value: 'NeoFS v2, VFS e IoStack · FAT32 para el ESP · page cache' },
-        { term: 'Userland', value: 'NeoShell Ring 3 · 27 binarios .NXE · 2 DLLs .NXL' },
+        { term: 'Userland', value: 'NeoShell Ring 3 · librerías NXL v2 PIE · neocurl sobre HTTPS' },
       ],
       quote:
         '«Explícito sobre mágico. Capas, no montones. Fallo rápido, fallo claro. Driver aislado, kernel pequeño.»',
@@ -184,7 +186,7 @@ neodev build --image
 # 3. Arranca en QEMU con OVMF y GDB en :1234
 neodev run
 
-# Suite de tests automatizada (937/937)
+# Suite de tests automatizada (997/997)
 neodev test`,
     },
     ecosystem: {
@@ -256,7 +258,7 @@ NeoDOS Bootloader (UEFI application)
 NeoDOS Kernel (x86_64-unknown-none)
   ├─ 31 fases: GDT/IDT, memoria, Ob, SMP, drivers...
   ├─ monta NeoFS en C: y FAT32 ESP en A:
-  ├─ self-tests del kernel (937)
+  ├─ self-tests del kernel (997)
   └─ arranca servicios en orden de dependencia
        ↓
 NeoInit (PID 1) → NeoShell (Ring 3)`,
@@ -403,7 +405,7 @@ neodev test`,
         },
         {
           title: 'Los tests son especificación',
-          body: '937 tests no son una métrica: son la especificación ejecutable del comportamiento del kernel. Si no hay test, el comportamiento no está definido.',
+          body: '997 tests no son una métrica: son la especificación ejecutable del comportamiento del kernel. Si no hay test, el comportamiento no está definido.',
         },
         {
           title: 'La compatibilidad es un contrato',
@@ -478,7 +480,7 @@ neodev build --image
 # QEMU + OVMF + GDB :1234
 neodev run
 
-# suite de tests (937/937)
+# suite de tests (997/997)
 neodev test`,
       calloutTitle: 'Reconstruye la imagen antes de testear.',
       calloutBody:
@@ -493,7 +495,7 @@ neodev test`,
         { cmd: 'neodev build --image', desc: 'Compila bootloader, kernel, userland y genera la imagen GPT completa.' },
         { cmd: 'neodev build --quick --image', desc: 'Recompilación incremental del kernel + bootloader + imagen.' },
         { cmd: 'neodev run', desc: 'Arranca QEMU con OVMF, consola serie y GDB escuchando en :1234.' },
-        { cmd: 'neodev test', desc: 'Ejecuta la suite automatizada del kernel (937 tests).' },
+        { cmd: 'neodev test', desc: 'Ejecuta la suite automatizada del kernel (997 tests).' },
         { cmd: 'neodev list', desc: 'Descubre los proyectos del workspace y sus targets.' },
         { cmd: 'neodev check-deps', desc: 'Verifica que las dependencias entre capas solo fluyan hacia abajo.' },
         { cmd: 'neodev clean', desc: 'Elimina artefactos de build e imágenes generadas.' },
@@ -545,7 +547,7 @@ ovmf_vars_template = "/usr/share/OVMF/OVMF_VARS.fd"`,
       titleA: 'De prototipo funcional',
       titleB: 'a API estable.',
       lead: 'El roadmap se organiza en fases y milestones con objetivos técnicos claros, dependencias verificadas y prioridades justificadas. GitHub Issues es la fuente de verdad de planificación.',
-      badges: ['v0.51.5 actual', 'v1.0 · ABI congelada', 'issues = SSOT'],
+      badges: ['v0.52 actual', 'v1.0 · ABI congelada', 'issues = SSOT'],
     },
     map: {
       eyebrow: 'Mapa de versiones',
@@ -654,6 +656,150 @@ ovmf_vars_template = "/usr/share/OVMF/OVMF_VARS.fd"`,
       ],
       primary: 'Roadmap completo',
       secondary: 'Ver issues abiertas',
+    },
+  },
+  news: {
+    meta: {
+      title: 'Novedades',
+      description:
+        'Últimos lanzamientos de NeoDOS: v0.52 trae HTTP/HTTPS nativo, pila TLS 1.3 propia, el árbol \\NeoDOS y perfiles de usuario, además del trabajo en curso sobre el trust store.',
+    },
+    hero: {
+      eyebrow: 'Novedades',
+      titleA: 'Lo último',
+      titleB: 'del kernel.',
+      lead: 'NeoDOS publica lanzamientos pequeños y verificables. Aquí está lo que ha cambiado últimamente, desde HTTPS y TLS 1.3 nativos hasta el árbol de nombres reorganizado y los perfiles por usuario. La ABI se mantiene estable entre versiones menores.',
+      badges: ['v0.52 · 2026-11-17', '997/997 tests', 'ABI v8 sin cambios'],
+    },
+    development: {
+      eyebrow: 'En desarrollo',
+      title: 'Ahora mismo en develop',
+      lead: 'Trabajo que ya está en develop pero todavía no forma parte de un lanzamiento etiquetado.',
+      items: [
+        {
+          title: 'Importación de CAs de terceros',
+          body: 'certctl import|list|show|remove|status|repair guarda CAs en el Registry y hace que TLS confíe en la unión con el bundle de la imagen. Acepta PEM y DER, y rechaza certificados de servidor.',
+        },
+        {
+          title: 'Trust store versionado',
+          body: 'La imagen incluye un bundle DER en \\NeoDOS\\System\\config\\roots.der con cabecera NDTB. Un bundle truncado o editado se rechaza en vez de confiar en un subconjunto; neocurl funciona sin --ca y falla cerrado.',
+        },
+        {
+          title: 'Avisos de frescura del bundle',
+          body: 'neocurl avisa si el bundle está fechado en el futuro o tiene más de dos años. Es un aviso, no un fallo.',
+        },
+        {
+          title: 'Correcciones de filesystem',
+          body: 'Escrituras inline parciales (#755), escrituras en varios trozos (#748, #751) y corrupción de directorios (#753), además de páginas de caché obsoletas tras liberar bloques COW (#754).',
+        },
+        {
+          title: 'Validación de regiones de carga ELF',
+          body: 'load_elf exige ahora una LoadRegion y valida todos los PT_LOAD antes de copiar, cerrando una vía por la que un .NXE manipulado podía escribir en memoria del kernel (#762).',
+        },
+      ],
+      note: 'El trabajo sin lanzar puede cambiar antes de etiquetarse. El changelog es la fuente de verdad.',
+    },
+    history: {
+      eyebrow: 'Historial de lanzamientos',
+      title: 'Lanzamientos recientes',
+      lead: 'Un resumen de los últimos hitos. El registro completo está en el repositorio.',
+    },
+    fixesLabel: 'Correcciones',
+    validationLabel: 'Validación',
+    releases: [
+      {
+        version: 'v0.52',
+        date: '2026-11-17',
+        title: 'HTTP/HTTPS nativo, TLS 1.3, árbol \\NeoDOS y perfiles de usuario',
+        badge: 'Último',
+        tone: 'cyan',
+        summary:
+          'Versión menor, compatible en ABI/API: 140 commits desde v0.51.5. La ABI v8 del kernel y la SSDT RAX 0–99 (37 asignadas) no cambian.',
+        highlights: [
+          {
+            title: 'Cliente NeoHTTP (#712)',
+            body: 'libhttp, TcpTransport, el CLI neocurl y una suite de aceptación HTTP dentro del huésped. Caducidad de ARP, reintentos de ACK pendientes, actualizaciones de ventana y FIN/RST ordenados hacen fiables las descargas grandes (#721).',
+          },
+          {
+            title: 'TLS 1.3 desde cero (#712)',
+            body: 'libcrypto (SHA-2, HMAC/HKDF, ChaCha20-Poly1305, X25519, RSA y ECDSA con vectores RFC/NIST) y libtls (record layer, key schedule, validación X.509, SNI y ALPN). La autenticación del servidor es obligatoria: no hay modo inseguro.',
+          },
+          {
+            title: 'Reloj fiable y CSPRNG en Ring 3',
+            body: 'libclock convierte RTC + estado de ntpd en un Clock fail-closed y \\Device\\Random expone un DRBG ChaCha20 sembrado con RDSEED/RDRAND. ntpd ya no puede poner el reloj en 2055.',
+          },
+          {
+            title: 'Árbol NeoDOS y perfiles',
+            body: 'Binarios del sistema en \\NeoDOS\\System, librerías en \\NeoDOS\\Libraries, además de \\Program Files, \\ProgramData y \\Users. Cada cuenta SAM obtiene directorios Desktop/Documents/Downloads/AppData (#398, #400).',
+          },
+        ],
+        fixes: [
+          {
+            title: 'brk y validación de memoria de usuario (#745)',
+            body: 'brk mapeaba una página de menos y el validador aceptaba memoria más allá del break, así que un buffer grande podía paniquear en Ring 0.',
+          },
+          {
+            title: 'SocketRecv y neocurl',
+            body: 'Las páginas demand-paged devolvían EFAULT en vez de mapearse; neocurl reutilizaba bloques liberados en lugar de agotar el heap.',
+          },
+        ],
+        validation:
+          '997/997 tests del kernel · neodev check-deps: sin violaciones nuevas · descarga HTTPS real anclada en GTS Root R4.',
+        url: 'https://github.com/NeoDOS-Project/NeoDOS/releases/tag/v0.52',
+      },
+      {
+        version: 'v0.51.5',
+        date: '2026-10-09',
+        title: 'Hardening de sincronización del VFS',
+        badge: 'Parche',
+        tone: '',
+        summary: 'Sin cambios de ABI/API. Centrado en la contención de locks y en un estado de filesystem determinista.',
+        highlights: [
+          {
+            title: 'Jerarquía de locks del VFS (#83, #519)',
+            body: 'MOUNT_MANAGER se unió a la jerarquía forzada VFS → PAGE_CACHE → BLOCK_DEVICES; la resolución de rutas dejó de asignar bajo el lock del VFS y los volcados de caché pasaron a estar acotados.',
+          },
+          {
+            title: 'Snapshots de NeoFS v2',
+            body: 'Persistencia diferida de la free list (~29% más rápido en escrituras de metadatos), extracción de snapshots por fichero y generaciones monótonas con borrado explícito.',
+          },
+          {
+            title: 'Scheduler y red',
+            body: 'Runqueues de prioridad O(1) por CPU, interfaz loopback y rutas locales, estadísticas por NIC, supervisión de renovación DHCP y un camino de datos TCP funcional.',
+          },
+        ],
+        fixes: [],
+        validation: '861/861 tests del kernel · 4/4 arranques SMP hasta shell con ACK de DHCP.',
+        url: 'https://github.com/NeoDOS-Project/NeoDOS/releases/tag/v0.51.5',
+      },
+      {
+        version: 'v0.51.4',
+        date: '2026-10-06',
+        title: 'Lanzamiento de estabilidad',
+        badge: 'Parche',
+        tone: '',
+        summary: 'Sin features nuevas: cuatro bugs de propiedad del scheduler y las syscalls cerrados (#476, #477, #482, #488).',
+        highlights: [
+          {
+            title: 'Propiedad KPRCB/RSP',
+            body: 'El camino de reschedule mantiene las interrupciones desactivadas desde la publicación de KPRCB hasta el cambio físico de stack, con una aserción permanente anotada con el sitio.',
+          },
+          {
+            title: 'Asignación atómica de slots y auditoría IRETQ',
+            body: 'Los spawns concurrentes ya no pueden recibir el mismo slot de usuario/heap y el hilo de arranque no genera falsos IRETQ_BAD_FRAME.',
+          },
+        ],
+        fixes: [],
+        validation: '825/825 tests del kernel · QEMU SMP1/2/4 y VirtualBox SMP2: sin violaciones de propiedad ni panics.',
+        url: 'https://github.com/NeoDOS-Project/NeoDOS/releases/tag/v0.51.4',
+      },
+    ],
+    cta: {
+      eyebrow: 'Fuente de verdad',
+      title: 'Lee el changelog completo.',
+      body: 'Cada lanzamiento, corrección y limitación conocida está documentada en el repositorio.',
+      primary: 'Changelog completo',
+      secondary: 'Todos los lanzamientos',
     },
   },
   resources: {
