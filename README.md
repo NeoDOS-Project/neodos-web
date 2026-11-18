@@ -4,7 +4,7 @@ Official website for [NeoDOS](https://github.com/NeoDOS-Project/NeoDOS), a moder
 64-bit operating system written in Rust for x86-64.
 
 Built with [Astro](https://astro.build/) and published to GitHub Pages at
-<https://alexis900.github.io/neodos-web/>.
+<https://neodos-project.github.io/neodos-web/>.
 
 ## Features
 
@@ -42,7 +42,7 @@ public/         favicon, Open Graph image and static assets
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the site
 with `withastro/action` and publishes `dist/` to GitHub Pages.
 
-The site is configured with `site: 'https://alexis900.github.io'` and
+The site is configured with `site: 'https://neodos-project.github.io'` and
 `base: '/neodos-web'` in `astro.config.mjs`.
 
 ## Credits

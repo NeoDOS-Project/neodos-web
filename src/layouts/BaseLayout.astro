@@ -28,7 +28,7 @@ const metaDescription =
   'NeoDOS is a modern 64-bit operating system written in Rust for x86-64: hybrid kernel, Object Manager, isolated drivers, SMP and ACL-based security.';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const site = Astro.site ?? new URL('https://alexis900.github.io');
+const site = Astro.site ?? new URL('https://neodos-project.github.io');
 const canonical = new URL(Astro.url.pathname, site).toString();
 const ogImage = new URL(`${base}/og.png`, site).toString();
 ---

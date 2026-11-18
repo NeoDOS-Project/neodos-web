@@ -852,10 +852,10 @@ ovmf_vars_template = "/usr/share/OVMF/OVMF_VARS.fd"`,
         url: 'https://github.com/NeoDOS-Project/.github',
       },
       {
-        name: 'alexis900/neodos-web',
+        name: 'NeoDOS-Project/neodos-web',
         tag: 'Web',
         description: 'Código fuente de este sitio, construido con Astro y desplegado en GitHub Pages.',
-        url: 'https://github.com/alexis900/neodos-web',
+        url: 'https://github.com/NeoDOS-Project/neodos-web',
       },
     ],
     docs: {
